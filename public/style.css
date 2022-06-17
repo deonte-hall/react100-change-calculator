@@ -1,0 +1,27 @@
+.col2{
+    background-color: white;
+    background-position: 23px;
+}
+.container{ 
+    justify-content: space-evenly;
+    background-color: bisque;
+}
+.child2{
+    padding-top: 20px;
+}
+th{
+    padding-left: 1px;
+    padding-right: 1px;
+    padding-bottom: 10px;
+    padding-top: 10px;
+}
+.amountDue{
+    size: inherit;
+}
+.amountPaid{
+    position: inherit;
+}
+#bo{
+    border-width: 5x;
+    border-style: double;
+}

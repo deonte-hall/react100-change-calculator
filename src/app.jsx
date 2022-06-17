@@ -16,7 +16,8 @@ class App extends Component {
         quarters: "",
         dimes: "",
         nickels: "",
-        pennys: "" 
+        pennys: "",
+        noChange: "",
     }   
     this.calculate = this.calculate.bind(this);
     this.handleChange = this.handleChange.bind(this);
@@ -35,9 +36,15 @@ class App extends Component {
     let dimes=0;
     let nickels=0;
     let pennys=0;
-
-      console.log("this is log", due, paid)    
-        if(paid >= due){
+    console.log('paid', paid, 'due', due)
+    
+        if(paid < due || paid === 0){
+            this.setState({
+                noChange: `You have no change, you are short $${due-paid} dollars.`
+            })
+        return null;
+      }
+        if(paid > due){
             changeOwed = paid - due
             theirAmount = Math.abs(paid - due)
             console.log("their-amount:", theirAmount, "change-owed:", changeOwed)
@@ -61,12 +68,6 @@ class App extends Component {
                 changeOwed -= 5;
             }
         }
-        // if(changeOwed >=2){
-        //     while(changeOwed >= 2){
-        //         twoBills++;
-        //         changeOwed -= 2;
-        //     }
-        // }
         if(changeOwed >= 1){
             while(changeOwed >= 1){
                 ones++;
@@ -99,10 +100,10 @@ class App extends Component {
                 
             }
         }
-    
       //trying to update state values so that they can be re-rendered onto the U/I
+     
         this.setState({
-            result: theirAmount.toFixed(2),
+            result: `You have ${theirAmount.toFixed(2)} in change.`,
             twentys,
             tens,
             fives,
@@ -121,6 +122,9 @@ class App extends Component {
         console.log("dimes", dimes);
         console.log("nickels", nickels);
         console.log("pennies", pennys);
+
+      
+        
         }
   /*** Change handler that is called upon user input that will 
   update state values to what user has inputted ***/
@@ -135,14 +139,14 @@ class App extends Component {
     <div className='parent container'>
         <div className='Page'>
             <h3 id="header" className='text-center'>Change Calculator</h3>
-            <div className="child container" id="inputOutputBox">
-                <div className='child1 row bg-secondary' id="input">
+            <div className="child container row" id="inputOutputBox">
+                <div className='child1 col bg-secondary' id="input">
                     <p className="fw-bold row">Input Values Here:</p>
                     <input type="number" name="amountDue" placeholder='amount due' className='amountDue' onChange={this.handleChange}/>
                     <input type="number" placeholder='amount paid' name="amountPaid" className='amountReceived' onChange={this.handleChange}/>
                     <button id='calculate' name="calculate" className='calculate-change' onClick={() => this.calculate(this.state.amountDue, this.state.amountPaid)}>Calculate</button>
                 </div>
-                <div className="child2 row">
+                <div className="child2 col">
                     <table className="table-bordered table-grou-separator-color blue col" id="bo">
                         <tbody>
                             <tr className='row'>
@@ -159,7 +163,8 @@ class App extends Component {
                             </tr>
                          </tbody>
                     </table>
-                    <h4>You receive {this.state.result} in change!</h4>
+                    <h4 className='fc-red'>{this.state.noChange}</h4>
+                    <h4 className='fc-green'>{this.state.result}</h4>
                 </div>
             </div>
         </div>

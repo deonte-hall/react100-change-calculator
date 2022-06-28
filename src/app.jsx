@@ -56,6 +56,7 @@ class App extends Component {
                 changeOwed -= 20;
             }
         }
+        while
         if(changeOwed >= 10){
             while(changeOwed >= 10){
                 tens++;
